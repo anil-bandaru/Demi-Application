@@ -34,9 +34,8 @@ public class PostalDataController {
 	public ResponseEntity<GlobalResponseUtil> updatePostalInfo(@RequestBody List<PostalData> inputDatas) {
 		GlobalResponseUtil responseUtil=null;
 		postalDataService.savePostalData(inputDatas);
-		status=HttpStatus.OK;
 		responseUtil=new GlobalResponseUtil(HttpStatus.OK,null,Constants.Success_Message);
-		return ResponseEntity.status(status).body(responseUtil);
+		return ResponseEntity.ok().body(responseUtil);
 	}
 
 }
