@@ -25,30 +25,17 @@ public class PostalDataController {
 	@GetMapping("/getSuburbanData")
 	public ResponseEntity<Object> getSuburbanData(@RequestBody List<Integer> postalCodes) {
 		GlobalResponseUtil responseUtil=null;
-		HttpStatus status=null;
-		try {
 		Map<String, Object> response=postalDataService.getSuburbNames(postalCodes);
-		status=HttpStatus.OK;
-		responseUtil=new GlobalResponseUtil(status,response,Constants.Success_Message);
-	} catch (Exception e) {
-		status=HttpStatus.INTERNAL_SERVER_ERROR;
-		responseUtil=new GlobalResponseUtil(status,null,Constants.AppInternalServerError);
-	}
-	return ResponseEntity.status(status).body(responseUtil);
+		responseUtil=new GlobalResponseUtil(HttpStatus.OK,response,Constants.Success_Message);
+		return ResponseEntity.ok().body(responseUtil);
 	}
 
 	@PostMapping("/add")
 	public ResponseEntity<GlobalResponseUtil> updatePostalInfo(@RequestBody List<PostalData> inputDatas) {
 		GlobalResponseUtil responseUtil=null;
-		HttpStatus status=null;
-		try {
-			postalDataService.savePostalData(inputDatas);
-			status=HttpStatus.OK;
-			responseUtil=new GlobalResponseUtil(status,null,Constants.Success_Message);
-		} catch (Exception e) {
-			status=HttpStatus.INTERNAL_SERVER_ERROR;
-			responseUtil=new GlobalResponseUtil(status,null,Constants.AppInternalServerError);
-		}
+		postalDataService.savePostalData(inputDatas);
+		status=HttpStatus.OK;
+		responseUtil=new GlobalResponseUtil(HttpStatus.OK,null,Constants.Success_Message);
 		return ResponseEntity.status(status).body(responseUtil);
 	}
 
